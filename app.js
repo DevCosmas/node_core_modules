@@ -3,6 +3,7 @@ const fs = require('fs');
 const http = require('http');
 const process = require('process');
 const path = require('path');
+const { resolve } = require('dns/promises');
 
 const hostName = 'localhost';
 const port = 3000;
@@ -43,7 +44,7 @@ console.log(platform);
 
 // creating new directory
 const folder = path.join(__dirname, 'students');
-fs.mkdirSync(folder);
+// fs.mkdirSync(folder);
 
 // creating a new file: user.js
 let content = " const name = 'ugwucosmas chibuike'";
@@ -94,7 +95,8 @@ fs.rmdir(updatedFolder, (err) => {
 
 const requestHandler = (req, res) => {
   const response = 'hello world';
-  res.status(200).end(response);
+  res.writeHead(200);
+  res.end(response);
 };
 const server = http.createServer(requestHandler);
 server.listen(port, hostName, () => {
